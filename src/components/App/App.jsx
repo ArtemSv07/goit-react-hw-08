@@ -28,7 +28,9 @@ function App() {
     dispatch(refreshUser());
   }, [dispatch]);
 
-  return (
+  return IsRefreshing ? (
+    <Loader />
+  ) : (
     <Layout>
       <Suspense fallback={<div>loading...</div>}>
         <Routes>
@@ -62,43 +64,6 @@ function App() {
       </Suspense>
     </Layout>
   );
-
-  // IsRefreshing ? (
-  //   <Loader />
-  // ) : (
-  //   <Layout>
-  //     <Suspense fallback={<div>loading...</div>}>
-  //       <Routes>
-  //         <Route path="/" element={<HomePage />} />
-  //         <Route
-  //           path="/register"
-  //           element={
-  //             <RestrictedRoute
-  //               component={<RegistrationPage />}
-  //               redirectTo="/"
-  //             />
-  //           }
-  //         />
-  //         <Route
-  //           path="/login"
-  //           element={
-  //             <RestrictedRoute
-  //               component={<LoginPage />}
-  //               redirectTo="/contacts"
-  //             />
-  //           }
-  //         />
-  //         <Route
-  //           path="/contacts"
-  //           element={
-  //             <PrivateRoute component={<ContactsPage />} redirectTo="/login" />
-  //           }
-  //         />
-  //         <Route path="*" element={<NotFoundPage />} />
-  //       </Routes>
-  //     </Suspense>
-  //   </Layout>
-  // );
 }
 
 export default App;
