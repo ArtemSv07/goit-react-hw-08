@@ -2,8 +2,9 @@ import { Formik, Form, Field } from "formik";
 import { useId } from "react";
 import * as Yup from "yup";
 import { ErrorMessage } from "formik";
+import Loader from "../../components/Loader/Loader";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addContact } from "../../redux/contacts/operations";
 
 import css from "./ContactForm.module.css";
@@ -20,6 +21,7 @@ const FeedbackSchema = Yup.object().shape({
 });
 
 const ContactForm = () => {
+  const { error, loading } = useSelector((state) => state.contacts);
   const nameFieldId = useId();
   const numberFieldId = useId();
   const dispatch = useDispatch();
@@ -66,6 +68,7 @@ const ContactForm = () => {
         <button className={css.btn} type="submit">
           Add contact
         </button>
+        {loading && !error && <Loader />}
       </Form>
     </Formik>
   );
